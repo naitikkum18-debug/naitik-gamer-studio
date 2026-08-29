@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NAITIK GAMER STUDIO - Racing Game</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+</head>
+<body>
+    <!-- Canvas for 3D graphics -->
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- HOME SCREEN -->
+    <div id="homeScreen" class="screen active">
+        <div class="animated-bg">
+            <div class="particle-container" id="particleContainer"></div>
+            <div class="road-animation"></div>
+        </div>
+
+        <div class="home-content">
+            <div class="game-title">
+                <h1 class="main-title">NAITIK GAMER STUDIO</h1>
+                <p class="subtitle">RACE. DRIVE. CONQUER.</p>
+            </div>
+
+            <div class="button-group">
+                <button class="glow-button" id="playBtn">
+                    <span class="button-text">PLAY</span>
+                    <span class="button-glow"></span>
+                </button>
+                <button class="glow-button" id="challengeBtn">
+                    <span class="button-text">CHALLENGE</span>
+                    <span class="button-glow"></span>
+                </button>
+                <button class="glow-button" id="garageBtn">
+                    <span class="button-text">GARAGE</span>
+                    <span class="button-glow"></span>
+                </button>
+                <button class="glow-button" id="settingsBtn">
+                    <span class="button-text">SETTINGS</span>
+                    <span class="button-glow"></span>
+                </button>
+            </div>
+
+            <div class="footer">
+                <p>© 2026 Naitik Gamer Studio</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- GAME MODES SCREEN -->
+    <div id="modesScreen" class="screen">
+        <div class="screen-header">
+            <button class="back-btn" id="backFromModes">← BACK</button>
+            <h2>SELECT GAME MODE</h2>
+        </div>
+
+        <div class="modes-container">
+            <div class="mode-card" id="quickRaceMode">
+                <div class="mode-icon">🏁</div>
+                <h3>QUICK RACE</h3>
+                <p>Race against AI opponents</p>
+            </div>
+            <div class="mode-card" id="freeDriveMode">
+                <div class="mode-icon">🛣️</div>
+                <h3>FREE DRIVE</h3>
+                <p>Explore without limits</p>
+            </div>
+            <div class="mode-card" id="timeTrialMode">
+                <div class="mode-icon">⏱️</div>
+                <h3>TIME TRIAL</h3>
+                <p>Beat your best time</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CAR SELECTION SCREEN -->
+    <div id="garageScreen" class="screen">
+        <div class="screen-header">
+            <button class="back-btn" id="backFromGarage">← BACK</button>
+            <h2>GARAGE - SELECT YOUR CAR</h2>
+        </div>
+        <div id="carSelectionContainer"></div>
+    </div>
+
+    <!-- SETTINGS SCREEN -->
+    <div id="settingsScreen" class="screen">
+        <div class="screen-header">
+            <button class="back-btn" id="backFromSettings">← BACK</button>
+            <h2>SETTINGS</h2>
+        </div>
+
+        <div class="settings-container">
+            <div class="setting-group">
+                <label>GRAPHICS QUALITY</label>
+                <div class="setting-options">
+                    <button class="setting-btn" data-setting="graphics" data-value="low">LOW</button>
+                    <button class="setting-btn" data-setting="graphics" data-value="medium">MEDIUM</button>
+                    <button class="setting-btn" data-setting="graphics" data-value="high">HIGH</button>
+                </div>
+            </div>
+
+            <div class="setting-group">
+                <label>STEERING TYPE</label>
+                <div class="setting-options">
+                    <button class="setting-btn" data-setting="steering" data-value="joystick">JOYSTICK</button>
+                    <button class="setting-btn" data-setting="steering" data-value="buttons">BUTTONS</button>
+                    <button class="setting-btn" data-setting="steering" data-value="tilt">TILT</button>
+                </div>
+            </div>
+
+            <div class="setting-group">
+                <label>DIFFICULTY</label>
+                <div class="setting-options">
+                    <button class="setting-btn" data-setting="difficulty" data-value="easy">EASY</button>
+                    <button class="setting-btn" data-setting="difficulty" data-value="medium">MEDIUM</button>
+                    <button class="setting-btn" data-setting="difficulty" data-value="hard">HARD</button>
+                </div>
+            </div>
+
+            <div class="setting-group toggle-group">
+                <label>SOUND</label>
+                <button class="toggle-btn" id="soundToggle">ON</button>
+            </div>
+
+            <div class="setting-group toggle-group">
+                <label>MUSIC</label>
+                <button class="toggle-btn" id="musicToggle">ON</button>
+            </div>
+
+            <div class="setting-group toggle-group">
+                <label>VIBRATION</label>
+                <button class="toggle-btn" id="vibrationToggle">ON</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- GAME SCREEN -->
+    <div id="gameScreen" class="screen">
+        <div class="hud">
+            <div class="hud-top">
+                <div class="hud-item">
+                    <span class="label">POSITION</span>
+                    <span class="value" id="positionHUD">1/4</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">LAP</span>
+                    <span class="value" id="lapHUD">1/3</span>
+                </div>
+                <div class="hud-item">
+                    <span class="label">TIME</span>
+                    <span class="value" id="timerHUD">00:00</span>
+                </div>
+            </div>
+
+            <div class="hud-speedometer">
+                <div class="speedometer-background">
+                    <div class="speed-needle" id="speedNeedle"></div>
+                </div>
+                <div class="speed-value" id="speedValue">0</div>
+                <div class="speed-unit">KM/H</div>
+            </div>
+
+            <div class="controls-hud" id="controlsHUD">
+                <!-- Controls will be added dynamically -->
+            </div>
+
+            <button class="pause-btn" id="pauseBtn">⏸ PAUSE</button>
+        </div>
+
+        <div class="finish-screen" id="finishScreen" style="display: none;">
+            <h2>RACE COMPLETE!</h2>
+            <div class="finish-stats">
+                <div class="stat">
+                    <span class="stat-label">POSITION</span>
+                    <span class="stat-value" id="finalPosition">1</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-label">TIME</span>
+                    <span class="stat-value" id="finalTime">00:00</span>
+                </div>
+            </div>
+            <div class="finish-buttons">
+                <button class="glow-button" id="nextRaceBtn">NEXT RACE</button>
+                <button class="glow-button" id="restartBtn">RESTART</button>
+                <button class="glow-button" id="menuBtn">MAIN MENU</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAUSE MENU -->
+    <div id="pauseMenu" class="screen pause-menu" style="display: none;">
+        <div class="pause-content">
+            <h2>PAUSED</h2>
+            <div class="pause-buttons">
+                <button class="glow-button" id="resumeBtn">RESUME</button>
+                <button class="glow-button" id="restartFromPause">RESTART</button>
+                <button class="glow-button" id="settingsFromPause">SETTINGS</button>
+                <button class="glow-button" id="menuFromPause">MAIN MENU</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Screen -->
+    <div id="loadingScreen" class="screen active" style="display: none;">
+        <div class="loading-content">
+            <h2>LOADING...</h2>
+            <div class="loading-bar">
+                <div class="loading-progress" id="loadingProgress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="js/settings.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/controls.js"></script>
+    <script src="js/car.js"></script>
+    <script src="js/ai.js"></script>
+    <script src="js/game.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
