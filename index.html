@@ -27,19 +27,15 @@
             <div class="button-group">
                 <button class="glow-button" id="playBtn">
                     <span class="button-text">PLAY</span>
-                    <span class="button-glow"></span>
                 </button>
                 <button class="glow-button" id="challengeBtn">
                     <span class="button-text">CHALLENGE</span>
-                    <span class="button-glow"></span>
                 </button>
                 <button class="glow-button" id="garageBtn">
                     <span class="button-text">GARAGE</span>
-                    <span class="button-glow"></span>
                 </button>
                 <button class="glow-button" id="settingsBtn">
                     <span class="button-text">SETTINGS</span>
-                    <span class="button-glow"></span>
                 </button>
             </div>
 
@@ -81,7 +77,37 @@
             <button class="back-btn" id="backFromGarage">← BACK</button>
             <h2>GARAGE - SELECT YOUR CAR</h2>
         </div>
-        <div id="carSelectionContainer"></div>
+        <div class="garage-content">
+            <div id="garageCanvas" class="garage-canvas"></div>
+            <div id="carSelectPanel" class="car-select-panel">
+                <div class="car-info-display">
+                    <h3 id="carNameDisplay">THAR</h3>
+                    <div class="car-stats-display">
+                        <div class="stat-item">
+                            <span>Speed</span>
+                            <div class="stat-bar"><div class="stat-fill" id="speedStat" style="width: 70%"></div></div>
+                        </div>
+                        <div class="stat-item">
+                            <span>Acceleration</span>
+                            <div class="stat-bar"><div class="stat-fill" id="accelStat" style="width: 65%"></div></div>
+                        </div>
+                        <div class="stat-item">
+                            <span>Handling</span>
+                            <div class="stat-bar"><div class="stat-fill" id="handleStat" style="width: 70%"></div></div>
+                        </div>
+                        <div class="stat-item">
+                            <span>Braking</span>
+                            <div class="stat-bar"><div class="stat-fill" id="brakeStat" style="width: 80%"></div></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="car-selection-buttons">
+                    <button class="car-select-btn" id="tharSelectBtn">THAR</button>
+                    <button class="car-select-btn" id="ferrariSelectBtn">FERRARI</button>
+                </div>
+                <button class="glow-button" id="startRaceBtn" style="width: 100%; margin-top: 20px;">START RACE</button>
+            </div>
+        </div>
     </div>
 
     <!-- SETTINGS SCREEN -->
@@ -190,7 +216,7 @@
     </div>
 
     <!-- PAUSE MENU -->
-    <div id="pauseMenu" class="screen pause-menu" style="display: none;">
+    <div id="pauseMenu" class="screen pause-menu">
         <div class="pause-content">
             <h2>PAUSED</h2>
             <div class="pause-buttons">
@@ -203,7 +229,7 @@
     </div>
 
     <!-- Loading Screen -->
-    <div id="loadingScreen" class="screen active" style="display: none;">
+    <div id="loadingScreen" class="screen" style="display: none;">
         <div class="loading-content">
             <h2>LOADING...</h2>
             <div class="loading-bar">
@@ -220,6 +246,7 @@
     <script src="js/car.js"></script>
     <script src="js/ai.js"></script>
     <script src="js/game.js"></script>
+    <script src="js/garage.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
